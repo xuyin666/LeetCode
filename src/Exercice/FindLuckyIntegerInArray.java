@@ -1,22 +1,23 @@
 package Exercice;
 
+import java.util.TreeMap;
+
 public class FindLuckyIntegerInArray{
 
     public int findLucky(int[] arr) {
 
-        int index=0;
-        boolean find=false;
-        int i;
-        for(i=0; i<arr.length; i++){
-            if(arr[i]==i){
-                index = i;
-                find = true;
-            }
-        }
-        if(i==arr.length && find ==false){
-            return -1;
+        TreeMap<Integer,Integer> tm = new TreeMap<>();
+        for(int nums: arr){
+            tm.put(nums,tm.getOrDefault(nums,0)+1);
         }
 
-        return index;
+        int max = -1;
+        for(int nums: tm.keySet()){
+            if(nums == tm.get(nums)){
+                max = Math.max(max,nums);
+            }
+        }
+
+        return max;
     }
 }

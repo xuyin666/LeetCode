@@ -11,17 +11,16 @@ public class QuickSort {
         int j = end;
 
         while(i <= j){
-            while(tmp >= list[i]){
-                i++;
-            }
-            while(tmp < list[j]){
-                j--;
-            }
-            if(i<=j) {
+            if(tmp<list[i] && tmp>list[j]) {
                 swap(list,i,j);
                 i++;
                 j--;
             }
+            else if(tmp>= list[i]){
+                i++;
+            }else j--;
+
+
 
         }
         swap(list,start,j);
