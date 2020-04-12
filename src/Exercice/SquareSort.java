@@ -1,6 +1,6 @@
 package Exercice;
 
-public class squareSort {
+public class SquareSort {
     public int[] sortedSquares(int[] A) {
         int len = A.length;
         int[] B = new int[len];

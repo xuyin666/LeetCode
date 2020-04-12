@@ -1,6 +1,6 @@
 package Exercice;
 
-public class mototonic {
+public class Mototonic {
     public boolean isMonotonic(int[] A) {
         boolean descreasing = true;
         boolean creasing = true;
