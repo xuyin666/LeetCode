@@ -7,6 +7,20 @@ public class FlattenBT2LinkedList {
         helper(root);
     }
 
-    public void helper(TreeNode root){
+    public TreeNode helper(TreeNode root){
+        if(root==null) return null;
+        TreeNode aNode = root;
+        TreeNode rightNode = root.right;
+        TreeNode leftNode = root.left;
+        if(root.left!=null){
+            root.left = null;
+            root.right = helper(leftNode);
+            aNode = root.right;
+            while(aNode.right!=null){
+                aNode = aNode.right;
+            }
+        }
+        aNode.right = helper(rightNode);
+        return root;
     }
 }
