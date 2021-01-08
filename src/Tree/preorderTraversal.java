@@ -6,27 +6,43 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class preorderTraversal {
-    public static List<Integer> preorderTraversal(TreeNode root) {
+//    public static List<Integer> preorderTraversal(TreeNode root) {
+//        List<Integer> list = new ArrayList<>();
+//        if(root==null) return list;
+//        Stack<TreeNode> nodeStack = new Stack<>();
+//        pushAllLeft(root, nodeStack, list);
+//        while(!nodeStack.isEmpty()){
+//            TreeNode aNode = nodeStack.pop();
+//            if(aNode.right!=null){
+//                pushAllLeft(aNode.right, nodeStack, list);
+//            }
+//        }
+//        return list;
+//    }
+//
+//    public static void pushAllLeft(TreeNode aNode, Stack<TreeNode> nodeStack, List<Integer> list){
+//        if(aNode==null) return;
+//        while(aNode!=null){
+//            nodeStack.add(aNode);
+//            list.add(aNode.val);
+//            aNode = aNode.left;
+//        }
+//    }
+
+    public static List<Integer> preorderTraversal(TreeNode root){
         List<Integer> list = new ArrayList<>();
         if(root==null) return list;
-        Stack<TreeNode> nodeStack = new Stack<>();
-        pushAllLeft(root, nodeStack, list);
-        while(!nodeStack.isEmpty()){
-            TreeNode aNode = nodeStack.pop();
-            if(aNode.right!=null){
-                pushAllLeft(aNode.right, nodeStack, list);
+        Stack<TreeNode> aStack = new Stack<>();
+        aStack.push(root);
+        while(!aStack.isEmpty()){
+            TreeNode aNode = aStack.pop();
+            if(aNode!=null){
+                list.add(aNode.val);
+                aStack.push(aNode.right);
+                aStack.push(aNode.left);
             }
         }
         return list;
-    }
-
-    public static void pushAllLeft(TreeNode aNode, Stack<TreeNode> nodeStack, List<Integer> list){
-        if(aNode==null) return;
-        while(aNode!=null){
-            nodeStack.add(aNode);
-            list.add(aNode.val);
-            aNode = aNode.left;
-        }
     }
 
     public static void main(String args[]){
