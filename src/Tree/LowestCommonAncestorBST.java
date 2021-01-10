@@ -15,22 +15,32 @@ package Tree;
 //        p and q will exist in the BST.
 
 public class LowestCommonAncestorBST {
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if(root==null) return null;
-        if(p.val<q.val){
-            if(dfs(p.right, q)) return p;
-            else return root;
-        }else if(p.val > q.val ){
-            if(dfs(q.right, p)) return q;
-            else return root;
-        }
-        return null;
-    }
-    public boolean dfs(TreeNode root, TreeNode aNode){
-        if(root==null) return false;
-        if(root.val==aNode.val)
-            return true;
-        return dfs(root.left, aNode) || dfs(root.right, aNode);
+    // iterative
+//    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+//        while(true){
+//            int pVal = root.val - p.val;
+//            int qVal = root.val - q.val;
+//            if(pVal>0 && qVal>0){
+//                root = root.left;
+//            }else if(pVal<0 && qVal<0){
+//                root = root.right;
+//            }else{
+//                break;
+//            }
+//        }
+//        return root;
+//    }
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q){
+            int pVal = root.val - p.val;
+            int qVal = root.val - q.val;
+            if( pVal > 0 && qVal > 0){
+                return lowestCommonAncestor(root.left, p, q);
+            }else if(pVal < 0 && qVal < 0){
+                return lowestCommonAncestor(root.right, p, q);
+            }else{
+                return root;
+            }
     }
 
 }
