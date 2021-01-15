@@ -16,20 +16,99 @@ package DynamicProgrammation;
 // The answer is guaranteed to fit in a 32-bit integer.
 
 
+import java.util.HashMap;
+
 public class DecodeWays {
+//    int len;
+//    HashMap<Integer, Integer> aMap;
+//    public int numDecodings(String s) {
+//        len = s.length();
+//        if(len==0) return 0;
+//        aMap = new HashMap<>();
+//        return helper(s, 0);
+//    }
+//
+//
+//    public int helper(String s, int index){
+//        if(index>=len) return 1;
+//        if(s.charAt(index)=='0') return 0;
+//        if(aMap.containsKey(index))
+//            return aMap.get(index);
+//        boolean validFirst = valid(s, index);
+//        boolean validSecond= valid(s, index, index+1);
+//        if(validFirst && validSecond){
+//            int aVal = helper(s, index+1) + helper(s, index+2);
+//            aMap.put(index, aVal);
+//            return aVal;
+//        }else if(validFirst){
+//            int aVal = helper(s, index+1);
+//            aMap.put(index, aVal);
+//            return aVal;
+//        }else if(validSecond){
+//            int aVal = helper(s, index+2);
+//            aMap.put(index, aVal);
+//            return aVal;
+//        }
+//        return 0;
+//    }
+//
+//    public boolean valid(String s, int index){
+//        if(s.charAt(index)!='0') return true;
+//        return false;
+//    }
+//
+//    public boolean valid(String s, int index, int index1){
+//        if(index1<len){
+//            String str = s.charAt(index) +""+ s.charAt(index1);
+//            int val = Integer.parseInt(str);
+//            if(val>=10 && val<=26){
+//                return true;
+//            }else{
+//                return false;
+//            }
+//        }
+//        return false;
+//    }
+
+//    dp[i]: represents possible decode ways to the ith char(include i), whose index in string is i-1
     public int numDecodings(String s) {
-
-        return 0;
+        int len = s.length();
+        if(len==0){
+            return 0;
+        }
+        int[] dp = new int[len+1];
+        dp[0]=1;
+        dp[1]= s.charAt(0)=='0'? 0 : 1;
+        for(int i=2;i<=len; i++){
+            if(valid(s, i-1) &&valid(s, i-2,i-1)){
+                dp[i] = dp[i-1] + dp[i-2];
+            }else if(valid(s, i-1)){
+                dp[i] = dp[i-1];
+            }else if(valid(s, i-2,i-1)){
+                dp[i] = dp[i-2];
+            }
+            else break;
+        }
+        return dp[len];
     }
 
-    public int helper(String s, int index){
-        char ch = s.charAt(index);
-        return 0;
-//        if( ch=="0" )
-//            return 0;
-//        if( ch=="1" )
-//            return helper(s, index+1) + helper(s, index+2);
-//        if( ch=="3" || ch=="4" )
-//            return 1+helper(s, index+1);
+    public boolean valid(String s, int index){
+        if(s.charAt(index)!='0') return true;
+        return false;
     }
+
+    public boolean valid(String s, int index, int index1){
+        if(index1<s.length()){
+            String str = s.charAt(index) +""+ s.charAt(index1);
+            int val = Integer.parseInt(str);
+            if(val>=10 && val<=26){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+    }
+
+
 }
