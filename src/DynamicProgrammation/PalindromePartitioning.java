@@ -1,5 +1,6 @@
 package DynamicProgrammation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // 131. Palindrome Partitioning
@@ -9,11 +10,26 @@ import java.util.List;
 
 public class PalindromePartitioning {
     public List<List<String>> partition(String s) {
-        return null;
+        List<List<String>> res = new ArrayList<>();
+        List<String> list = new ArrayList<>();
+        if(s.length()==0) return res;
+        dfs(s, 0, s.length()-1, res, list);
+        return res;
     }
 
-    public List<List<String>> helper(String s, int index, int start, int end){
-        return null;
+    public List<List<String>> dfs(String s, int start, int end, List<List<String>> res, List<String> list){
+        if(start==end+1){
+            res.add(new ArrayList<>(list));
+        }else{
+            for(int i=start; i <= end; i++){
+                if(isPalindrome(s, start, i)){
+                    list.add(s.substring(start, i+1));
+                    dfs(s, i+1, end, res, list);
+                    list.remove(list.size()-1);
+                }
+            }
+        }
+        return res;
     }
 
     public boolean isPalindrome(String s, int start, int end){
