@@ -11,6 +11,7 @@ public class MaximalSquare {
     }
 
     public boolean containingOnlyOne(char[][] matrix, int i, int j){
+//        System.out.println("hahha");
         return false;
     }
 }
