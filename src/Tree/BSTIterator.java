@@ -18,16 +18,36 @@ package Tree;
 // You may assume that next() calls will always be valid.
 // That is, there will be at least a next number in the in-order traversal when next() is called.
 
-public class BSTIterator {
-    public BSTIterator(TreeNode root) {
+import java.util.Stack;
 
+public class BSTIterator {
+    Stack<TreeNode> nodeStack;
+    public BSTIterator(TreeNode root) {
+        nodeStack = new Stack<>();
+        while(root!=null){
+            nodeStack.push(root);
+            root = root.left;
+        }
     }
 
     public int next() {
+        while(!nodeStack.isEmpty()){
+            TreeNode aNode = nodeStack.pop();
+            if(aNode.right!=null){
+                TreeNode rightNode = aNode.right;
+                while(rightNode!=null){
+                    nodeStack.push(rightNode);
+                    rightNode = rightNode.left;
+                }
+            }
+            return aNode.val;
+        }
         return 0;
     }
 
     public boolean hasNext() {
-        return false;
+        if(nodeStack.isEmpty())
+            return false;
+        return true;
     }
 }

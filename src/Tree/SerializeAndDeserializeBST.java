@@ -13,6 +13,8 @@ package Tree;
 // The encoded string should be as compact as possible.
 
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class SerializeAndDeserializeBST {
@@ -35,22 +37,24 @@ public class SerializeAndDeserializeBST {
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-
-        return helper(data);
+        if(data.length()==0) return null;
+        String[] numbers = data.split(",");
+        Queue<Integer> nodeQueue = new LinkedList<>();
+        for(String str: numbers){
+            nodeQueue.add(Integer.parseInt(str));
+        }
+        return helper(nodeQueue);
     }
 
-    public TreeNode helper(String data){
-        int len = data.length();
-        if(len==0) return null;
-        TreeNode aNode = new TreeNode(data.charAt(0)-'0');
-        int i;
-        for(i=1; i<len; i++){
-            if(data.charAt(i) > data.charAt(0)){
-                break;
-            }
+    public TreeNode helper(Queue<Integer> nodeQueue){
+        if(nodeQueue.isEmpty()) return null;
+        TreeNode aNode = new TreeNode(nodeQueue.remove());
+        Queue<Integer> newQueue = new LinkedList<>();
+        while(!nodeQueue.isEmpty() && nodeQueue.peek() < aNode.val){
+            newQueue.add(nodeQueue.remove());
         }
-        aNode.left = helper(data.substring(1,i));
-        aNode.right = helper(data.substring(i, len));
+        aNode.left = helper(newQueue);
+        aNode.right = helper(nodeQueue);
         return aNode;
     }
 }
