@@ -19,38 +19,30 @@ import java.util.Queue;
 
 public class AddOneRowToTree {
     public TreeNode addOneRow(TreeNode root, int v, int d) {
-        if(d==1) return new TreeNode(v);
-        if(root == null) return null;
-        Queue<TreeNode> nodeQueue = new LinkedList<>();
-        int curr = 2;
-        nodeQueue.add(root);
-        while(!nodeQueue.isEmpty()){
-            int size = nodeQueue.size();
-            int i = 0;
-            while(i < size){
-                TreeNode aNode = nodeQueue.remove();
-
-                if(aNode.left!=null){
-                    TreeNode leftNode = aNode.left;
-                    if(curr == d){
-                        aNode.left = new TreeNode(v);
-                        aNode.left.left = leftNode;
-                    }
-                    nodeQueue.add(leftNode);
-                }
-                if(aNode.right!=null){
-                    TreeNode rightNode = aNode.right;
-                    if(curr == d){
-                        aNode.right = new TreeNode(v);
-                        aNode.right.right = rightNode;
-                    }
-                    nodeQueue.add(rightNode);
-                }
-            }
-            if(curr == d )
-                return root;
-            curr = curr+1;
+        if(d==1) {
+            TreeNode aNode = new TreeNode(v);
+            aNode.left = root;
+            return aNode;
         }
-        return null;
+        helper(root, v, d, 1);
+        return root;
+    }
+
+    public void helper(TreeNode node, int v, int d, int curr){
+        if(node==null)
+            return;
+        if(curr == d-1){
+            TreeNode tmp = node.left;
+            node.left = new TreeNode(v);
+            node.left.left = tmp;
+
+            tmp = node.right;
+            node.right = new TreeNode(v);
+            node.right.right = tmp;
+            return;
+        }
+
+        helper(node.left, v, d, curr+1);
+        helper(node.right, v, d, curr+1);
     }
 }
