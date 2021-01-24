@@ -8,25 +8,24 @@ package Tree;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class FindDuplicateSubtrees {
     public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
         List<TreeNode> list = new ArrayList<>();
-        helper(root, list);
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        helper(root, hashMap, list);
         return list;
     }
 
-    public TreeNode helper(TreeNode root, List<TreeNode> list){
-        if(root==null) return null;
-        List<TreeNode> newList = new ArrayList<>(list);
-        TreeNode leftNode = helper(root.left, list);
-        TreeNode rightNode = helper(root.right, newList);
-        if(leftNode!=null && rightNode!=null){
-            if(leftNode.val==rightNode.val){
-                list.add(root.right);
-            }
+    public String helper(TreeNode root, HashMap<String, Integer> hashMap, List<TreeNode> list){
+        if(root==null) return "#";
+        String serial = root.val + "," + helper(root.left, hashMap, list) + "," + helper(root.right, hashMap, list);
+        hashMap.put(serial, hashMap.getOrDefault(serial, 0)+1);
+        if(hashMap.get(serial)==2){
+            list.add(root);
         }
-        return root;
+        return serial;
     }
 }
