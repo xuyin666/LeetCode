@@ -21,9 +21,9 @@ public class MaximumWidthBTree {
 
     public int helper(TreeNode node, int depth, int id){
         if(node==null) return 0;
-        if(depth==aList.size()) aList.add(node.val);
+        if(depth==aList.size()) aList.add(id);
         int leftMost = id - aList.get(depth);
         return Math.max(leftMost+1, Math.max(helper(node.left, depth+1, 2*leftMost),
-                                            helper(node.right, depth+1, 2*leftMost+1)));
+                helper(node.right, depth+1, 2*leftMost+1)));
     }
 }
