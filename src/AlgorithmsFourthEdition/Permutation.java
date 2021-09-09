@@ -1,4 +1,4 @@
-package AlgoClassic;
+package AlgorithmsFourthEdition;
 
 public class Permutation {
     public void printList(int[] a){

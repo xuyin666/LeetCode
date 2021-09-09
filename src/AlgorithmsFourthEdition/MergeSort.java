@@ -1,4 +1,4 @@
-package AlgoClassic;
+package AlgorithmsFourthEdition;
 
 public class MergeSort {
     public void Sort(int[] arr){

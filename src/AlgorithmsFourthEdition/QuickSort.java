@@ -1,4 +1,4 @@
-package AlgoClassic;
+package AlgorithmsFourthEdition;
 
 public class QuickSort {
     public void quickSort(int[] list, int start, int end){

@@ -9,6 +9,18 @@ package StringExercice;
 
 public class CountBinarySubstrings {
     public int countBinarySubstrings(String s) {
-        return 0;
+        int pre = 0;
+        int curr = 1;
+        int count = 0;
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) == s.charAt(i - 1)) {
+                curr++;
+            } else {
+                pre = curr;
+                curr = 1;
+            }
+            if (pre >= curr) count++;
+        }
+        return count;
     }
 }
